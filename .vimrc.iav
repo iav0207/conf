@@ -2,130 +2,108 @@
 "	VIM CONFIG
 "==============================
 
-"                                       Общие настройки
+" General settings
 
-"ассоциируем символы русской раскладки с символами латиницы, чтобы
-"обеспечить возможность ввода команд при включённой русской раскладке
-set langmap=ёйцукенгшщзхъфывапролджэячсмитьюЁЙЦУКЕНГШЩЗХЪФЫВАПОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\;'zxcvbnm.~QWERTYUIOP[]ASDFGHJKL:\"ZXCVBNM<
-" set langmap=ёйцукенгшщзхъфывапролджэячсмитьбю;`qwertyuiop[]asdfghjkl\;'zxcvbnm,.,ЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;QWERTYUIOP{}ASDFGHJKL:\"ZXCVBNM<>
+" Set `nocompatible` to make Vim incompatible with Vi.
+set nocompatible
 
-set nocompatible        "несовместим с Vi
-set nobackup	" never create backup files (filename.ext~)
-set noswapfile	" never create *.swp files
+" Disable backup files and swap files.
+set nobackup
+set noswapfile
 set nowb
+
+" Enable paste mode.
 set paste
-set backspace=indent,eol,start	" backspace fix
-filetype plugin indent on
+
+" Fix backspace behavior.
+set backspace=indent,eol,start
+
+" Enable syntax highlighting.
 syntax on
 
-set autoread            "после изменения файл перечитывается
-filetype plugin on      "отдельные настройки под каждый тип файлов
-"setlocal spell spelllang=en,ru  "проверка орфографии
+" Enable autoread to reload files when they are changed.
+set autoread
 
-" Вначале открывает в utf8, если не подходит то в cp1251
-set fileencodings=utf8,cp1251
-set encoding=utf8
+" Enable file type plugins to load different settings for different file types.
+filetype plugin on
 
+" Enable spell checking.
+"setlocal spell spelllang=en,ru
+
+" Encoding settings
+
+" Set the default encoding to UTF-8, CP1251 as backup.
+set fileencodings=utf-8,cp1251
+
+" Set the encoding to UTF-8.
+set encoding=utf-8
+
+" Tab settings
 set ts=4
 set expandtab
-retab
-set lbr
-set showbreak=>\ 	" long line break sign
 
-set showmatch	" highlight corresponding bracket to the one
-				" under cursor
-set wildmenu	" nice autocomplete menu
-set splitbelow	" :new buffer appears at the bottom
-set splitright	" :vne buffer appears at the right
-set ssop+=resize	" Vim session saves buffers' positions and sizes
+" Line break settings
+set lbr " Set line breaks to be displayed as `=>\`.
 
-"  File encoding for save (convert)
-"map   <C-F8>	:execute RotateFEnc()
-"vmap 	
-"imap 	
-"let b:fencindex=0
-"function! RotateFEnc()
-"  let y = -1
-"  while y == -1
-"    let encstring = "#koi8-r#cp1251#8bit-cp866#utf-8#ucs-2le#"
-"    let x = match(encstring,"#",b:fencindex)
-"    let y = match(encstring,"#",x+1)
-"    let b:fencindex = x+1
-"    if y == -1
-"      let b:fencindex = 0
-"    else
-"      let str = strpart(encstring,x+1,y-x-1)
-"      return ":set fenc=".str
-"    endif
-"  endwhile
-"endfunction
+" Highlight corresponding bracket to the one under cursor.
+set showmatch
 
-"                                       Интерфейс
+set wildmenu " Enable nice autocomplete menu.
+set splitbelow " Place new buffers below the current one.
+set splitright " Place new buffers to the right of the current one.
+set ssop+=resize " Save buffer positions and sizes when Vim exits.
 
-set number      "включаем нумерацию строк
-"включаем перенос длинных строк
+" Interface settings
+set number " Enable line numbers.
 set wrap
-set lbr
-"Интерфейс GUI
-if has("gui")
-    set guioptions+=b       " Добавляет нижнюю горизонтальную строку прокрутки
-    set guioptions-=T       " Убирает панель инструментов
-    " set columns=250         " Ширина окна ( дом 178, работа 210 )
-    " set lines=95            " Высота окна ( дом 49, работа 80 )
-    au GUIEnter * :set lines=9999 columns=9999
-endif
+set ruler " Display the cursor coordinates in the bottom right corner.
+set showmode " Show the current mode in the status line.
+set showcmd " Show the current command in the status line.
+syntax on
+set autoindent
 
+" Search settings
 
-set ruler       "координаты курсора в правом нижнем углу
-set showmode    "показывать режим работы (норм,вставка,визуальный,замена)
-set showcmd     "показывть незавершённую команду внизу справа
-syntax on       "подсветка синтаксиса
+" Ignore case by default, but use case-sensitive search if the search term contains uppercase letters.
+set ignorecase
+set smartcase
+set hlsearch " Highlight search results.
+set incsearch " Highlight search results as you type.
 
-set autoindent  "авто отступ
-"set cmdheight=3 "кол-во строк в командной части
-
-"                                       Настройка поиска
-
-set ignorecase	"в общем случае не обращать внимания на регистр
-set smartcase	"если в искомом слове есть заглавные буквы - noignorecase
-set hlsearch	"подсветка результатов поиска
-set incsearch	"в течение набора в строку поиска уже подсвечиваются варианты
-" search for visually hightlighted text
+" Visually highlight text
 vnoremap <c-f> y<ESC>/<c-r>"<CR>
 
-"                                       Набор текста
 
-"табуляция заполняется пробелами
-set expandtab
-"настройка режима list
+" Listchars
+
+" Display spaces and tabs in list mode.
 set listchars=tab:>-,trail:-
 
-"                                       LaTeX-Suite
+" LaTeX-Suite
 
-" REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.
- filetype plugin on
+" Enable Latex-Suite for LaTeX files.
+filetype plugin on
 
-" IMPORTANT: win32 users will need to have 'shellslash' set so that latex
-" can be called correctly.
+" Set `shellslash` to ensure that LaTeX is called correctly on Windows.
 set shellslash
 
-"IMPORTANT: grep will sometimes skip displaying the file name if you
-" search in a singe file. This will confuse Latex-Suite. Set your grep
-" program to always generate a file-name.
+" Set `grepprg` to always generate a file-name.
 set grepprg=grep\ -nH\ $*
 
-" OPTIONAL: This enables automatic indentation as you type.
+" Enable automatic indentation for LaTeX files.
 filetype indent on
 
-" OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults
-" to
-" 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
-" The following changes the default filetype back to 'tex':
+" Set the default filetype for empty LaTeX files to `tex`.
 let g:tex_flavor='latex'
 
-" Setting output file format: PDF
+" Set the output file format to PDF.
 let g:Tex_CompileRule_pdf='pdflatex -interaction=nonstopmode $*'
 let g:Tex_DefaultTargetFormat='pdf'
 
+" Other settings
+
+" Map `H` to `H` to make the cursor jump to the beginning of the line.
 imap H H
 
+" Clipboard copy
+vmap <C-c> "+y
