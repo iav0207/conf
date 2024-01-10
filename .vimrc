@@ -2,5 +2,6 @@
 vmap <C-x> :!pbcopy<CR>  
 vmap <C-c> :w !pbcopy<CR><CR>
 
-" load vim config
-source ~/.vimrc.iav
+set shell=$SHELL
+colorscheme slate
+source $HOME/.vimrc.iav

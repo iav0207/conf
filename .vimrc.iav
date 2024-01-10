@@ -104,6 +104,3 @@ let g:Tex_DefaultTargetFormat='pdf'
 
 " Map `H` to `H` to make the cursor jump to the beginning of the line.
 imap H H
-
-" Clipboard copy
-vmap <C-c> "+y
