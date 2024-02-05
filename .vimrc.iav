@@ -70,6 +70,8 @@ set smartcase
 set hlsearch " Highlight search results.
 set incsearch " Highlight search results as you type.
 
+nnoremap <c-s> :let @/=""<CR>
+
 " Visually highlight text
 vnoremap <c-f> y<ESC>/<c-r>"<CR>
 
